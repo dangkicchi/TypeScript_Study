@@ -86,3 +86,47 @@ var banana = 'banana';
 //string型であってもany型は代入できてしまう。
 banana = anything;
 console.log(banana);
+//union型
+//numberもstringも扱える。
+var unionType = 10;
+//直前でnumber型を入れているので、string型のメソッドは使えない。
+//unionType.toUpperCase();
+unionType = 'hello';
+//直前でstring型を入れているので、string型のメソッドを使える。
+console.log(unionType.toUpperCase());
+//union型の配列 ()の後に[]
+var unionTypes = [21, 'hello', 3, 'world'];
+console.log(unionTypes);
+//Literal型
+//Enumと同じような使い方。
+//定義が少ないときはこっちを使うのもいいかも。(基本的にはenum使う)
+var apple = 'apple';
+//constは定数(リテラル？)なので変更できない。JavaScriptでも同じ。
+//apple = 'banana';
+var clothSize = 'large';
+var cloth = {
+    color: 'white',
+    //リテラル、unionの組み合わせで定義したモノ以外は使えない
+    // size: 'XXLarge'
+    size: 'medium'
+};
+var apple2 = 'apple2';
+var clothSize2 = 'large';
+var cloth2 = {
+    color: 'white',
+    size: 'medium'
+};
+//関数に型を付ける(引数と戻り値に型を付ける)
+function add(num1, num2) {
+    return num1 + num2;
+}
+//引数の型が違うのでエラーとなる。
+//add('hello', 123);
+console.log(add(9, 100));
+//void型(何も返さない)
+function sayHello() {
+    console.log('Hello!');
+    return;
+}
+//undefinedを返す。(何も無いことを返す)
+console.log(sayHello());

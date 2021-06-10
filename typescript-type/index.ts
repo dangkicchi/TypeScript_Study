@@ -104,6 +104,68 @@ let banana = 'banana';
 banana = anything;
 console.log(banana);
 
+//union型
+//numberもstringも扱える。
+let unionType: number | string = 10;
+//直前でnumber型を入れているので、string型のメソッドは使えない。
+//unionType.toUpperCase();
+
+unionType = 'hello';
+//直前でstring型を入れているので、string型のメソッドを使える。
+console.log(unionType.toUpperCase());
+
+//union型の配列 ()の後に[]
+let unionTypes: (number | string)[] = [21, 'hello', 3, 'world'];
+console.log(unionTypes);
+
+//Literal型
+//Enumと同じような使い方。
+//定義が少ないときはこっちを使うのもいいかも。(基本的にはenum使う)
+const apple = 'apple';
+//constは定数(リテラル？)なので変更できない。JavaScriptでも同じ。
+//apple = 'banana';
+let clothSize: 'small' | 'medium' | 'large' = 'large';
+const cloth: {
+  color: string;
+  size: 'small' | 'medium' | 'large'
+} = {
+  color: 'white',
+  //リテラル、unionの組み合わせで定義したモノ以外は使えない
+  // size: 'XXLarge'
+
+  size: 'medium'
+
+}
+
+//typeエイリアス
+type ClothSize = 'small' | 'medium' | 'large';
+const apple2 = 'apple2';
+let clothSize2: ClothSize = 'large';
+const cloth2: {
+  color: string;
+  size: ClothSize
+} = {
+  color: 'white',
+  size: 'medium'
+}
 
 
+
+//関数に型を付ける(引数と戻り値に型を付ける)
+function add(num1: number, num2: number): number {
+  return num1 + num2;
+}
+//引数の型が違うのでエラーとなる。
+//add('hello', 123);
+
+console.log(add(9, 100));
+
+//void型(何も返さない)
+function sayHello(): void {
+  console.log('Hello!');
+  return;
+}
+
+//void は undefinedを返す。(何も無いことを返す)
+console.log(sayHello());
 
