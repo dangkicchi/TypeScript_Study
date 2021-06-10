@@ -116,7 +116,7 @@ var cloth2 = {
     color: 'white',
     size: 'medium'
 };
-//関数に型を付ける(引数と戻り値に型を付ける)
+//関数宣言に型を付ける(引数と戻り値に型を付ける)
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -128,5 +128,68 @@ function sayHello() {
     console.log('Hello!');
     return;
 }
-//undefinedを返す。(何も無いことを返す)
+//void は undefinedを返す。(何も無いことを返す)
 console.log(sayHello());
+//関数の保持をする変数に型を付ける。(型注釈)
+var anotherAdd = add;
+//関数の保持をする変数に型を付ける。(型注釈・無名関数)
+var anotherAdd2 = function add(num1, num2) {
+    return num1 + num2;
+};
+//関数の保持をする変数に型を付ける。(型推論)
+var anotherAdd3 = function add(num1, num2) {
+    return num1 + num2;
+};
+//関数の保持をする変数に型を付ける。(型推論2)
+var anotherAdd4 = function add(num1, num2) {
+    return num1 + num2;
+};
+//アロー関数
+var doubleNumber = function (num) { return num * 2; };
+console.log(doubleNumber);
+console.log(doubleNumber(9));
+//アロー関数(型注釈)
+var doubleNumber2 = function (num) { return num * 2; };
+console.log(doubleNumber2);
+console.log(doubleNumber2(5));
+//アロー関数(型注釈2)
+var doubleNumber3 = function (num) { return num * 2; };
+console.log(doubleNumber3);
+console.log(doubleNumber3(128));
+//callback関数(あまりよくわからなかった)
+function doubleAndHandle(num, cb) {
+    var doubleNum = cb(num * 2);
+    console.log(doubleNum);
+}
+doubleAndHandle(21, function (doubleNum) {
+    return doubleNum;
+});
+//unknown型(使う前に typeof で確認してから代入する。)
+var unknownInput;
+var anyInput;
+var text;
+unknownInput = 'hello';
+unknownInput = 21;
+unknownInput = true;
+//このままだとstring型のtextに代入できない
+// text = unknownInput;
+//typeof で unknown型がstring型であると判明した場合は代入できる。
+if (typeof unknownInput === 'string') {
+    text = unknownInput;
+}
+anyInput = 'world';
+anyInput = 777;
+anyInput = false;
+//any型はstring型のtextに代入できてしまう
+text = anyInput;
+//never型(起こりえない値の型を使用する: 無限ループの場合)
+function infiniteLoop(message) {
+    while (true) {
+    }
+}
+console.log(infiniteLoop('This is an infinite loop!'));
+//never型(起こりえない値の型を使用する: Exceptionの場合)
+function error(message) {
+    throw new Error(message);
+}
+console.log(error('This is an error!'));

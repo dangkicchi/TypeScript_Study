@@ -151,7 +151,7 @@ const cloth2: {
 
 
 
-//関数に型を付ける(引数と戻り値に型を付ける)
+//関数宣言に型を付ける(引数と戻り値に型を付ける)
 function add(num1: number, num2: number): number {
   return num1 + num2;
 }
@@ -168,4 +168,92 @@ function sayHello(): void {
 
 //void は undefinedを返す。(何も無いことを返す)
 console.log(sayHello());
+
+
+//関数の保持をする変数に型を付ける。(型注釈)
+const anotherAdd: (n1: number, n2: number) => number = add;
+
+//関数の保持をする変数に型を付ける。(型注釈・無名関数)
+const anotherAdd2: (n1: number, n2: number) => number = function add(num1: number, num2: number): number {
+  return num1 + num2;
+}
+
+//関数の保持をする変数に型を付ける。(型推論)
+const anotherAdd3 = function add(num1: number, num2: number): number {
+  return num1 + num2;
+}
+
+//関数の保持をする変数に型を付ける。(型推論2)
+const anotherAdd4: (n1: number, n2: number) => number = function add(num1, num2) {
+  return num1 + num2;
+}
+
+//アロー関数
+const doubleNumber = num => num * 2;
+console.log(doubleNumber);
+console.log(doubleNumber(9));
+
+//アロー関数(型注釈)
+const doubleNumber2 = (num: number): number => num * 2;
+console.log(doubleNumber2);
+console.log(doubleNumber2(5));
+
+//アロー関数(型注釈2)
+const doubleNumber3: (num: number) => number = num => num * 2;
+console.log(doubleNumber3);
+console.log(doubleNumber3(128));
+
+
+//callback関数(あまりよくわからなかった)
+function doubleAndHandle(num: number, cb: (num: number) => number): void {
+  const doubleNum = cb(num * 2);
+  console.log(doubleNum);
+}
+
+doubleAndHandle(21, doubleNum => {
+  return doubleNum;
+});
+
+
+//unknown型(使う前に typeof で確認してから代入する。)
+let unknownInput: unknown;
+let anyInput: any;
+let text: string;
+unknownInput ='hello';
+unknownInput = 21;
+unknownInput = true;
+
+//このままだとstring型のtextに代入できない
+// text = unknownInput;
+
+//typeof で unknown型がstring型であると判明した場合は代入できる。
+if (typeof unknownInput === 'string') {
+  text = unknownInput;
+}
+
+anyInput ='world';
+anyInput = 777;
+anyInput = false;
+
+//any型はstring型のtextに代入できてしまう
+text = anyInput;
+
+//never型よくわからない。
+//Udemy動画の期待通りに動かない。
+
+//never型(起こりえない値の型を使用する: 無限ループの場合)
+// function infiniteLoop(message: string): never {
+//   while (true) {
+
+//   }
+// }
+// console.log(infiniteLoop('This is an infinite loop!'));
+
+
+//never型(起こりえない値の型を使用する: Exceptionの場合)
+function error(message: string): never {
+  throw new Error(message);
+}
+console.log(error('This is an error!'));
+
 
